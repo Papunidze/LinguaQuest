@@ -1,33 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  line-height: 28px;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  span,
+  label {
+    @apply prose md:prose-lg text-primary-dark;
+  }
+  .button {
+    @apply w-full px-2 h-10 rounded-md text-typography-primary font-medium shadow-sm max-w-full flex items-center justify-center transition-all duration-100 ease-in text-sm select-none outline-none;
+  }
+  .button .button-text-span {
+    @apply overflow-hidden flex items-center gap-4 text-ellipsis text-nowrap justify-center relative px-4 transition-none font-montserrat text-secondary-light;
+  }
+  .button-icon-span {
+    @apply size-6 text-secondary-light;
+  }
+  .button,
+  .btn-loading .button-icon-span {
+    @apply mr-[2px] flex flex-shrink-0 pl-2;
+  }
+
+  .btn-loading {
+    @apply bg-border-primary text-typography-secondary font-semibold cursor-not-allowed;
+  }
+  .btn-loading:hover {
+    @apply scale-100;
+  }
+
+  .btn-loading .button-text-span {
+    @apply px-0 pr-4;
+  }
+  .button:hover {
+    @apply scale-95;
+  }
+  .primary {
+    @apply bg-primary  focus:ring-2 focus:ring-secondary-dark;
+  }
+  .secondary {
+    @apply bg-button-secondary  focus:ring-2 focus:ring-gray-800;
+  }
+  .outlined {
+    @apply bg-transparent border border-border-primary focus:bg-border-primary;
+  }
+  .outlined .button-text-span {
+    @apply text-primary-dark;
+  }
+  .btn-danger {
+    @apply bg-button-danger  focus:ring-2 focus:ring-red-200;
+  }
+  .btn-warning {
+    @apply bg-button-warning  focus:ring-2 focus:ring-orange-200;
+  }
+  .btn-success {
+    @apply bg-button-success  focus:ring-2 focus:ring-green-200;
+  }
+  .input {
+    @apply block font-semibold rounded-lg leading-7 text-base md:py-1 md:px-3 py-0.5 px-1.5 border outline-none shadow-sm focus:ring-2 focus:ring-primary-light hover:ring-1 hover:ring-secondary-dark;
+  }
+  .input-label {
+    @apply block text-base leading-4 px-1 py-2;
+  }
+  .icon {
+    @apply h-6 w-6 text-typography-secondary;
+  }
+  .icon-active {
+    @apply text-primary stroke-2;
   }
 }
