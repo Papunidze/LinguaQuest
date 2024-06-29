@@ -1,8 +1,6 @@
-import React, {
-  ForwardRefExoticComponent,
-  RefAttributes,
-  SVGProps,
-} from "react";
+import { ImageProps } from "next/image";
+import React, { ReactElement } from "react";
+import { Icon } from "react-feather";
 
 type BtnVariant =
   | "primary"
@@ -13,16 +11,10 @@ type BtnVariant =
   | "btn-warning"
   | "btn-success";
 
-type Icons = ForwardRefExoticComponent<
-  Omit<SVGProps<SVGSVGElement>, "ref"> & {
-    title?: string;
-    titleId?: string;
-  } & RefAttributes<SVGSVGElement>
->;
-
 interface BtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: BtnVariant;
-  icon?: Icons;
+  icon?: ReactElement<Icon>;
+  image?: ReactElement<ImageProps>;
   className?: string;
   color?: string;
 }
@@ -32,11 +24,14 @@ export default function Button({
   icon: Icon,
   className,
   color,
+  image,
   ...props
 }: BtnProps) {
   return (
     <button className={`button ${variant} ${className}`} {...props}>
-      {Icon && <Icon className={`button-icon-span ${color}`} />}
+      {Icon && <span className={`button-icon-span ${color}`}>{Icon}</span>}
+
+      {image && <div> {image} </div>}
       <span className={`button-text-span ${color}`}>{props.children}</span>
     </button>
   );

@@ -1,13 +1,10 @@
 import Button from "@/ui/button";
 import Divider from "@/ui/divider";
-import IconButton from "@/ui/icon-button";
 
-import {
-  ArrowLeftEndOnRectangleIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/solid";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+import { LogIn, User } from "react-feather";
 
 export default function RootLayout({
   children,
@@ -38,59 +35,52 @@ export default function RootLayout({
             </header>
             <Divider />
             <nav className="flex items-center justify-center gap-4">
-              <div className="relative cursor-pointer group">
+              <Link href={"/auth/login"}>
                 <Button
                   variant="secondary"
                   className="relative z-50 group-hover:scale-95"
-                  icon={ArrowLeftEndOnRectangleIcon}
+                  icon={<LogIn />}
                 >
                   Log In
                 </Button>
-                <div className="absolute w-4 h-4 bg-button-secondary rotate-45 z-10 -translate-x-1/2 top-[calc(100%-8px)] left-1/2 group-hover:scale-90 group-hover:top-[calc(100%-10px)] transition-all"></div>
-              </div>
-              <div className="relative cursor-pointer group">
+              </Link>
+              <Link href={"/auth/register"}>
                 <Button
                   className="relative z-50 !bg-gray-100 group-hover:scale-95"
                   color="!text-primary-dark"
-                  icon={UserCircleIcon}
+                  icon={<User />}
                 >
                   Create Account
                 </Button>
-                <div className="absolute w-4 h-4 bg-gray-200 rotate-45 z-10 -translate-x-1/2 bottom-auto left-1/2 right-auto top-[calc(100%-8px)] group-hover:top-[calc(100%-10px)] transition-all"></div>
-              </div>
+              </Link>
             </nav>
-            <section className="flex items-start justify-center w-full flex-col">
-              {children}
-            </section>
-            <Divider />
-            <div className="flex items-center gap-2 justify-center">
-              <IconButton>
-                <Image
-                  src={"/images/facebook.png"}
-                  alt="Company Logo"
-                  className="object-contain rounded-2xl  w-8 h-8 shadow-inner"
-                  width={500}
-                  height={500}
-                />
-              </IconButton>
-              <IconButton>
-                <Image
-                  src={"/images/google.png"}
-                  alt="Company Logo"
-                  className="object-contain rounded-2xl  w-8 h-8 shadow-inner"
-                  width={96}
-                  height={96}
-                />
-              </IconButton>
-              <IconButton>
-                <Image
-                  src={"/images/instagram.png"}
-                  alt="Company Logo"
-                  className="object-contain rounded-2xl  w-8 h-8 shadow-inner"
-                  width={500}
-                  height={500}
-                />
-              </IconButton>
+            <div className="max-w-md w-full">
+              <section className="flex items-start justify-center w-full flex-col">
+                {children}
+              </section>
+
+              <div className="flex items-center gap-2 w-full">
+                <span className="w-full max-w-36 text-sm text-gray-400">
+                  Or Continue with
+                </span>
+                <Divider />
+              </div>
+
+              <Button
+                variant="outlined"
+                className="mt-4"
+                image={
+                  <Image
+                    src="/images/google.png"
+                    alt="Company Logo"
+                    className="object-contain rounded-2xl shadow-inner button-icon-span"
+                    width={96}
+                    height={96}
+                  />
+                }
+              >
+                Google
+              </Button>
             </div>
           </aside>
           <aside className="flex-1 md:block hidden rounded-3xl shadow-md ">

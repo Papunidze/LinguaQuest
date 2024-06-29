@@ -33,7 +33,7 @@
     @apply w-full px-2 h-10 rounded-md text-typography-primary font-medium shadow-sm max-w-full flex items-center justify-center transition-all duration-100 ease-in text-sm select-none outline-none;
   }
   .button .button-text-span {
-    @apply overflow-hidden text-ellipsis text-nowrap inline-block px-4 transition-none font-montserrat text-secondary-light;
+    @apply overflow-hidden flex items-center gap-4 text-ellipsis text-nowrap justify-center relative px-4 transition-none font-montserrat text-secondary-light;
   }
   .button-icon-span {
     @apply size-6 text-secondary-light;
