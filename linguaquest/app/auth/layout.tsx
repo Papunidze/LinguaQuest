@@ -43,26 +43,3 @@ export default function RootLayout({
     </>
   );
 }
-/*
-      {/* <main className="h-full w-full flex items-center justify-center ">
-        <div className=" absolute left-0 top-0 flex p-8 w-full h-full items-center justify-center">
-          <div className="bg-white flex w-full p-4  container rounded-3xl shadow-lg gap-4 h-max">
-            <aside className="flex-1	flex items-center justify-start w-full flex-col relative">
-              <div className="max-w-md w-full m-auto">
-                <section className="flex items-start justify-center w-full flex-col">
-                  {children}
-                </section>
-              </div>
-            </aside>
-            <aside className="flex-1 lg:block hidden rounded-3xl shadow-md ">
-              <Image
-                src="/images/banner.svg"
-                alt="Company Logo"
-                className="object-cover rounded-2xl  w-full h-full shadow-inner"
-                width={500}
-                height={500}
-              />
-            </aside>
-          </div>
-        </div>
-      </main> */
