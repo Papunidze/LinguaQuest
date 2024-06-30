@@ -30,10 +30,10 @@
     @apply prose md:prose-lg text-primary-dark;
   }
   .button {
-    @apply w-full px-2 h-10 rounded-md text-typography-primary font-medium shadow-sm max-w-full flex items-center justify-center transition-all duration-100 ease-in text-sm select-none outline-none;
+    @apply w-full px-2 p-2 rounded-md text-typography-primary font-medium shadow-sm max-w-full flex items-center justify-center transition-all duration-100 ease-in text-sm select-none outline-none;
   }
   .button .button-text-span {
-    @apply overflow-hidden flex items-center gap-4 text-ellipsis text-nowrap justify-center relative px-4 transition-none font-montserrat text-secondary-light;
+    @apply overflow-hidden flex items-center gap-4 text-ellipsis text-nowrap justify-center relative px-4 transition-none font-montserrat text-secondary-light text-sm md:text-base;
   }
   .button-icon-span {
     @apply size-6 text-secondary-light;
@@ -81,7 +81,7 @@
     @apply block font-semibold rounded-lg leading-7 text-base md:py-1 md:px-3 py-0.5 px-1.5 border outline-none shadow-sm focus:ring-2 focus:ring-primary-light hover:ring-1 hover:ring-secondary-dark;
   }
   .input-label {
-    @apply block text-base leading-4 px-1 py-2;
+    @apply block text-sm leading-4 px-1 py-2 md:text-base;
   }
   .icon {
     @apply h-6 w-6 text-typography-secondary;

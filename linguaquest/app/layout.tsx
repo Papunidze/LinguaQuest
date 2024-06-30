@@ -25,12 +25,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="pb-36 bg-gray-100 h-screen max-h-[-webkit-fill-available] overflow-auto m-auto pt-4 px-4 ">
-        <div className="mx-auto space-y-8 px-2 pt-20 lg:px-8 lg:py-8 ">
-          <div className="rounded-lg p-px bg-background-secondary ">
-            <div className="rounded-lg  p-3.5 lg:p-6">{children}</div>
-          </div>
-        </div>
+      <body className="pb-36 bg-gray-100 h-screen max-h-[-webkit-fill-available] overflow-auto pt-4 px-4 ">
+        <div className="rounded-lg bg-background-secondary">{children}</div>
       </body>
     </html>
   );
