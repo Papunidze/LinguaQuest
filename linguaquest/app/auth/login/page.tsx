@@ -6,6 +6,7 @@ import { ControlledInput } from "@/components/inputs/controlled-input";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "@/constant/authorization";
+import Link from "next/link";
 
 const Login = () => {
   const {
@@ -33,9 +34,12 @@ const Login = () => {
               label="Email"
             />
             <div className="relative">
-              <a className="link right-1 absolute text-end top-2 text-sm text-primary-light underline cursor-pointer">
+              <Link
+                className=" float-right font-semibold font-montserrat  right-1 absolute text-end top-2 text-sm text-primary-light underline cursor-pointer"
+                href={"/auth/forgot-password"}
+              >
                 Forgot Password?
-              </a>
+              </Link>
               <ControlledInput
                 control={control}
                 errors={errors.password}

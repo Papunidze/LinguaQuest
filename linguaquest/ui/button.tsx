@@ -30,7 +30,6 @@ export default function Button({
   return (
     <button className={`button ${variant} ${className}`} {...props}>
       {Icon && <span className={`button-icon-span ${color}`}>{Icon}</span>}
-
       {image && <div> {image} </div>}
       <span className={`button-text-span ${color}`}>{props.children}</span>
     </button>
