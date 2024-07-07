@@ -5,18 +5,25 @@ import { Form } from "@/components/forms/form";
 import { ControlledInput } from "@/components/inputs/controlled-input";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { signInSchema } from "@/constant/authorization";
+
 import Link from "next/link";
+import { AuthScheme } from "@/constant";
+import { useMutation } from "@/lib/rest-query/use-mutation";
+import { passwordReset } from "../api";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
+  const router = useRouter();
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: { email: "", password: "" },
-    resolver: yupResolver(signInSchema),
+    defaultValues: { email: "" },
+    resolver: yupResolver(AuthScheme.resetPasswordScheme),
   });
+  const $resetPassword = useMutation(passwordReset);
 
   return (
     <div className="text-2xl leading-7 font-bold mb-2 flex flex-col gap-4 mt-4">
@@ -31,7 +38,20 @@ const ForgotPassword = () => {
         that we will never send your password via email.
       </p>
       <Form
-        onSubmit={handleSubmit((form) => console.log("form"))}
+        onSubmit={handleSubmit((form) =>
+          $resetPassword.mutate(
+            { ...form },
+            {
+              onSuccess: () => {
+                router.push("/auth/login", { scroll: false });
+              },
+
+              onError: ({ message }) => {
+                enqueueSnackbar(message, { variant: "error" });
+              },
+            }
+          )
+        )}
         isLoading={false}
         submitButtonLabel="Send Reset Instructions"
         form={

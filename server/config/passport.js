@@ -11,7 +11,6 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        console.log(profile);
         let user = await User.findOne({ email: profile._json.email });
 
         if (!user) {

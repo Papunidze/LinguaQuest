@@ -5,21 +5,30 @@ import { Form } from "@/components/forms/form";
 import { ControlledInput } from "@/components/inputs/controlled-input";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { signInSchema } from "@/constant/authorization";
 import Link from "next/link";
 import Divider from "@/ui/divider";
 import Button from "@/ui/button";
 import Image from "next/image";
+import { AuthScheme } from "@/constant";
+import { useAuthContext } from "@/providers/loginProvider";
+import { register } from "../api";
+import { useMutation } from "@/lib/rest-query/use-mutation";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router = useRouter();
+
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: { email: "", password: "" },
-    resolver: yupResolver(signInSchema),
+    defaultValues: { email: "", password: "", passwordConfirm: "", name: "" },
+    resolver: yupResolver(AuthScheme.signUpScheme),
   });
+  const { setAuthData } = useAuthContext();
+  const $register = useMutation(register);
 
   return (
     <div className="leading-7 mb-2 flex flex-col gap-4 mt-4 w-full  m-auto">
@@ -31,7 +40,20 @@ const Register = () => {
       </div>
 
       <Form
-        onSubmit={handleSubmit((form) => console.log(form))}
+        onSubmit={handleSubmit((form) =>
+          $register.mutate(
+            { ...form },
+            {
+              onSuccess: ({ ...args }) => {
+                setAuthData({ ...args });
+                router.push("/", { scroll: false });
+              },
+              onError: ({ message }) => {
+                enqueueSnackbar(message, { variant: "error" });
+              },
+            }
+          )
+        )}
         submitButtonLabel="Sign Up"
         isLoading={false}
         form={
@@ -41,6 +63,7 @@ const Register = () => {
               name="name"
               inputProps={{ type: "text" }}
               label="Name"
+              errors={errors.name}
             />
             <ControlledInput
               control={control}
@@ -61,6 +84,7 @@ const Register = () => {
               name="passwordConfirm"
               label="Confirm Password"
               inputProps={{ type: "password" }}
+              errors={errors.passwordConfirm}
             />
           </div>
         }

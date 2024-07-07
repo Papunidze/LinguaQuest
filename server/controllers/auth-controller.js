@@ -61,7 +61,19 @@ exports.sign = catchAsync(async (req, res, next) => {
       email: req.body.email.toLowerCase(),
     }).select("+password");
 
-    if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
+    if (!user) {
+      return next(
+        new AppError(
+          "Invalid email or password. Please check your credentials.",
+          401,
+          "errors.invalid_credentials"
+        )
+      );
+    }
+    if (
+      !user.password ||
+      !(await bcrypt.compare(req.body.password, user.password))
+    ) {
       return next(
         new AppError(
           "Invalid email or password. Please check your credentials.",

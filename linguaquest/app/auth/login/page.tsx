@@ -5,21 +5,33 @@ import { Form } from "@/components/forms/form";
 import { ControlledInput } from "@/components/inputs/controlled-input";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { signInSchema } from "@/constant/authorization";
 import Link from "next/link";
 import Divider from "@/ui/divider";
 import Button from "@/ui/button";
 import Image from "next/image";
+import { AuthScheme } from "@/constant";
+import { useMutation } from "@/lib/rest-query/use-mutation";
+import { auth } from "../api";
+import { buildRequestUrl } from "@/lib/request/use-request-url";
+import { useAuthContext } from "@/providers/loginProvider";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
+
   const {
     control,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     defaultValues: { email: "", password: "" },
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(AuthScheme.signInSchema),
   });
+  const { setAuthData } = useAuthContext();
+
+  const $auth = useMutation(auth);
 
   return (
     <div className="leading-7 mb-2 flex flex-col gap-4 mt-4 w-full  m-auto">
@@ -30,7 +42,20 @@ const Login = () => {
         </h1>
       </div>
       <Form
-        onSubmit={handleSubmit((form) => console.log(form))}
+        onSubmit={handleSubmit((form) =>
+          $auth.mutate(
+            { ...form },
+            {
+              onSuccess: ({ ...args }) => {
+                setAuthData({ ...args });
+                router.push("/", { scroll: false });
+              },
+              onError: ({ message }) => {
+                enqueueSnackbar(message, { variant: "error" });
+              },
+            }
+          )
+        )}
         submitButtonLabel="Sign In"
         isLoading={false}
         form={
@@ -78,6 +103,9 @@ const Login = () => {
 
       <Button
         variant="outlined"
+        onClick={() =>
+          (window.location.href = `${buildRequestUrl("/auth/google")}`)
+        }
         image={
           <Image
             src="/images/google.png"
