@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import Provider from "@/providers/provider";
+import Navbar from "@/shared/navbar/navbar";
 
 export const metadata: Metadata = {
   title: {
@@ -27,7 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Provider>
-        <body className="pb-36 bg-gray-100 h-screen max-h-[-webkit-fill-available] overflow-auto pt-4 px-4 ">
+        <body className="pb-36 bg-backgrounds-primary h-screen max-h-[-webkit-fill-available] overflow-auto pt-4 px-4 ">
+          <Navbar />
           <div className="rounded-lg bg-background-secondary">{children}</div>
         </body>
       </Provider>

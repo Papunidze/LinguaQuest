@@ -5,6 +5,7 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./ui/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./shared/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   future: {
     hoverOnlyWhenSupported: true,
@@ -49,6 +50,21 @@ export default {
         montserrat: ["Montserrat", "sans-serif"],
       },
     },
+    keyframes: {
+      slideIn: {
+        "0%": { transform: "translateX(-100%)", opacity: "0" },
+        "100%": { transform: "translateX(0)", opacity: "1" },
+      },
+      slideOut: {
+        "0%": { transform: "translateX(0)", opacity: "1" },
+        "100%": { transform: "translateX(-100%)", opacity: "0" },
+      },
+    },
+    animation: {
+      slideIn: "slideIn 0.5s ease-out forwards",
+      slideOut: "slideOut 0.5s ease-in forwards",
+    },
+
     backgroundImage: {
       "gradient-1": "linear-gradient(to top left, #DC4731, #3B0918)",
       "gradient-2": "linear-gradient(to top left, #1B314D, #2C4669)",

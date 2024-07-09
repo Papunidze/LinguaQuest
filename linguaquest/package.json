@@ -21,6 +21,7 @@
     "react-feather": "^2.0.10",
     "react-hook-form": "^7.52.0",
     "react-query": "^3.39.3",
+    "scroll-lock": "^2.1.5",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/scroll-lock": "^2.1.3",
     "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
