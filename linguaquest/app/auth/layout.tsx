@@ -20,7 +20,7 @@ export default function RootLayout({
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main className="flex items-center justify-center h-[calc(100vh_-_4rem)]">
+      <main className="flex items-center justify-center h-full w-full fixed left-0 top-0 bg-backgrounds-primary p-4 z-50">
         <div className="bg-white flex  max-w-6xl p-4 w-full container rounded-3xl shadow-lg gap-4 m-auto">
           <aside className="flex-1 flex items-center justify-start w-full flex-col relative">
             <div className="max-w-md w-full m-auto">

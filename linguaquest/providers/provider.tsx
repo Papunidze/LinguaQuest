@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { CheckLoginProvider } from "./loginProvider";
 import { SnackbarProvider } from "notistack";
+import Permissions from "./permissions";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +19,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <CheckLoginProvider>
         <SnackbarProvider autoHideDuration={5000}>
-          <Suspense fallback={<p>Loading feed...</p>}>{children}</Suspense>
+          <Permissions>
+            <Suspense fallback={<p>Loading feed...</p>}>{children}</Suspense>
+          </Permissions>
         </SnackbarProvider>
       </CheckLoginProvider>
     </QueryClientProvider>

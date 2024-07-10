@@ -27,12 +27,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Provider>
-        <body className="pb-36 bg-backgrounds-primary h-screen max-h-[-webkit-fill-available] overflow-auto pt-4 px-4 ">
+      <body className="pb-36 bg-backgrounds-primary h-screen max-h-[-webkit-fill-available] overflow-auto pt-4 px-4 ">
+        <Provider>
           <Navbar />
-          <div className="rounded-lg bg-background-secondary">{children}</div>
-        </body>
-      </Provider>
+          <div className="rounded-lg bg-background-secondary mt-20">
+            {children}
+          </div>
+        </Provider>
+      </body>
     </html>
   );
 }
