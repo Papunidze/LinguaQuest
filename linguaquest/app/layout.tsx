@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import Provider from "@/providers/provider";
-import Navbar from "@/shared/navbar/navbar";
+import AppTopBar from "@/shared/appTopBar";
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="pb-36 bg-backgrounds-primary h-screen max-h-[-webkit-fill-available] overflow-auto pt-4 px-4 ">
         <Provider>
-          <Navbar />
+          <AppTopBar />
           <div className="rounded-lg bg-background-secondary mt-20">
             {children}
           </div>

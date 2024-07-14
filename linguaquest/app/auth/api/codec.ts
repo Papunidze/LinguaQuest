@@ -40,3 +40,7 @@ export type RecoveryInputs = {
 export type ResetPasswordInputs = {
   email: string;
 };
+export const TSignOut = t.type({
+  status: t.string,
+  message: t.string,
+});

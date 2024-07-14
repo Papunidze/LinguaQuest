@@ -3,12 +3,13 @@ import { AuthType, useAuthContext } from "@/providers/loginProvider";
 import Button from "@/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useCallback } from "react";
-import { Menu } from "react-feather";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
-import { MenuToggle } from "./menu-toggle";
 import Poppins from "@/ui/poppins";
+import { useMutation } from "@/lib/rest-query/use-mutation";
+import { SignOut } from "@/app/auth/api";
+import { MenuToggle } from "@/components/menu/menuToggle";
 
 export const navigation = [
   { id: "0", title: "Features", url: "/features" },
@@ -17,31 +18,32 @@ export const navigation = [
   { id: "3", title: "Roadmap", url: "#roadmap" },
 ];
 
-const Navbar = () => {
+const AppTopBar = () => {
+  const router = useRouter();
+
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { auth } = useAuthContext();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // const toggleNavigation = useCallback(() => {
-  //   setOpenNavigation((prevOpen) => {
-  //     const newOpen = !prevOpen;
-  //     if (newOpen) {
-  //       disablePageScroll();
-  //     } else {
-  //       enablePageScroll();
-  //     }
-  //     return newOpen;
-  //   });
-  // }, []);
-
+  const toggleNavigation = useCallback(() => {
+    setIsOpen((prevOpen) => {
+      const newOpen = !prevOpen;
+      if (newOpen) {
+        disablePageScroll();
+      } else {
+        enablePageScroll();
+      }
+      return newOpen;
+    });
+  }, []);
+  const $signOut = useMutation(SignOut);
   return (
-    <nav className="shadow-sm fixed top-0 w-full left-0 rounded-lg py-2  bg-white/75 backdrop-blur-sm">
+    <nav className=" z-50 shadow-sm fixed top-0 w-full left-0 rounded-lg py-2  bg-white/75 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center z-50 gap-4">
             <div className="-mr-2 flex md:hidden z-50">
-              <MenuToggle setIsOpen={setIsOpen} isOpen={isOpen} />
+              <MenuToggle setIsOpen={toggleNavigation} isOpen={isOpen} />
             </div>
             <Link href="/">
               <h1 className="leading-10  font-Poppins text-xl  font-semibold bg-gradient-1 text-transparent bg-clip-text relative  px-4 ">
@@ -83,29 +85,66 @@ const Navbar = () => {
           <div className="block">
             {auth.type === AuthType.AUTHENTICATED ? (
               <div className="relative">
-                <Image
-                  id="avatarButton"
-                  onClick={() => setIsDropdownOpen((prev) => !prev)}
-                  className="w-12 h-12 rounded-full cursor-pointer ring-2 ring-primary"
-                  src={auth.user.avatar}
-                  alt="User dropdown"
-                  width={500}
-                  height={500}
-                />
+                <Poppins
+                  btn={
+                    <Image
+                      id="avatarButton"
+                      className="w-12 h-12 rounded-full cursor-pointer ring-2 ring-primary"
+                      src={auth.user.avatar}
+                      alt="User dropdown"
+                      width={500}
+                      height={500}
+                    />
+                  }
+                  list={[
+                    {
+                      label: "Account Settings",
+                      fn: () => {
+                        router.push("/settings", { scroll: false });
+                      },
+                    },
+                    {
+                      label: "Preferences",
+                      fn: () => {
+                        router.push("/settings", { scroll: false });
+                      },
+                    },
+                    {
+                      label: "Activity",
+                      fn: () => {
+                        router.push("/settings", { scroll: false });
+                      },
+                    },
 
-                {isDropdownOpen && (
-                  <Poppins
-                    list={[{ label: "test" }]}
-                    content={
-                      <>
-                        <div>{auth.user.name}</div>
-                        <div className="font-medium truncate">
-                          {auth.user.email}
-                        </div>
-                      </>
-                    }
-                  />
-                )}
+                    {
+                      label: "Subscription and Billing",
+                      fn: () => {
+                        router.push("/settings", { scroll: false });
+                      },
+                    },
+                    {
+                      label: "Help and Support",
+                      fn: () => {
+                        router.push("/settings", { scroll: false });
+                      },
+                    },
+                    {
+                      label: "Sign Out",
+                      fn: () => {
+                        $signOut.mutateAsync();
+                        router.push("/auth/login", { scroll: false });
+                      },
+                    },
+                  ]}
+                  content={
+                    <>
+                      <div>{auth.user.name}</div>
+                      <div className="font-medium truncate">
+                        {auth.user.email}
+                      </div>
+                    </>
+                  }
+                />
               </div>
             ) : (
               <Button>Sign In</Button>
@@ -141,4 +180,4 @@ const Navbar = () => {
   );
 };
 
-export default React.memo(Navbar);
+export default React.memo(AppTopBar);

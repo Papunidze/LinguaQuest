@@ -24,3 +24,5 @@ export const auth = ({ email, password }: Codec.AuthInput) =>
 
 export const refresh = () =>
   rest.post("/auth/refresh").decode(Codec.TRefreshToken);
+
+export const SignOut = () => rest.delete("/auth/logout").decode(Codec.TSignOut);
