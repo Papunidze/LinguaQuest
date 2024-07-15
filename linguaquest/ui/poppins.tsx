@@ -38,7 +38,7 @@ const Poppins = ({ list, content, btn }: PoppinsProps) => {
             className="fixed inset-0 bg-black/25 w-full h-screen opacity-50 z-10"
             onClick={() => toggleNavigation()}
           ></div>
-          <div className="z-20 bg-white divide-y absolute top-full right-0 mt-3 divide-gray-100 rounded-lg w-44 shadow-inner transition-all animate-fadeIn">
+          <div className="z-20 bg-white divide-y absolute top-full right-1 mt-3 divide-gray-100 rounded-lg w-44 shadow-inner transition-all animate-fadeIn">
             <div className="px-4 py-3 text-sm text-gray-900 inset-y-0 inset-0 rounded-md z-20">
               {content}
             </div>

@@ -6,7 +6,6 @@ const Path = ({ d, className }: { d: string; className: string }) => (
     fill="transparent"
     strokeWidth="3"
     stroke="hsl(0, 0%, 18%)"
-    strokeLinecap="round"
     className={className}
   />
 );

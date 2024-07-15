@@ -1,9 +1,9 @@
-import Image from "next/image";
-import React from "react";
+import React, { ReactElement } from "react";
+import { Icon } from "react-feather";
 
 interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: string;
+  icon?: ReactElement<Icon>;
 }
 
 const IconButton = ({ icon, ...props }: IconButtonProps) => {
@@ -12,6 +12,7 @@ const IconButton = ({ icon, ...props }: IconButtonProps) => {
       className="rounded-md bg-gray-50 text-typography-secondary hover:bg-gray-200 p-2 flex gap-2"
       {...props}
     >
+      {icon}
       {props.children}
     </button>
   );
