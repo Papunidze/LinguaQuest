@@ -1,5 +1,6 @@
 "use client";
 
+import { link } from "fs";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -47,7 +48,7 @@ const SettingsLeftBar = () => {
   const renderDropdown = (
     label: string,
     section: keyof State,
-    links: Link[]
+    links?: Link[]
   ) => (
     <li>
       <button
@@ -55,32 +56,40 @@ const SettingsLeftBar = () => {
         className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
         aria-controls={`${section}-dropdown`}
         aria-expanded={state[section]}
-        onClick={() => toggleSection(section)}
       >
-        <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+        <Link
+          className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
+          href={`/settings/${section}`}
+        >
           {label}
-        </span>
-        <DropdownIcon isOpen={state[section]} />
+        </Link>
+        {links && (
+          <span onClick={() => toggleSection(section)}>
+            <DropdownIcon isOpen={state[section]} />
+          </span>
+        )}
       </button>
-      <ul
-        id={`${section}-dropdown`}
-        className={`py-2 space-y-2 transition-all duration-75 ${
-          state[section]
-            ? "opacity-100 max-h-screen"
-            : "opacity-0 max-h-0 hidden"
-        }`}
-      >
-        {links.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={link.href}
-              className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {links && (
+        <ul
+          id={`${section}-dropdown`}
+          className={`py-2 space-y-2 transition-all duration-75 ${
+            state[section]
+              ? "opacity-100 max-h-screen"
+              : "opacity-0 max-h-0 hidden"
+          }`}
+        >
+          {links.map((link) => (
+            <li key={link.label}>
+              <Link
+                href={`/settings/${section}${link.href}`}
+                className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </li>
   );
 
@@ -92,11 +101,7 @@ const SettingsLeftBar = () => {
     >
       <div className="h-full px-3 py-4 overflow-y-auto">
         <ul className="space-y-2 font-medium flex flex-col gap-4">
-          {renderDropdown("Account Settings", "account", [
-            { label: "Account Information", href: "#" },
-            { label: "Password and Security", href: "#" },
-            { label: "Privacy Settings", href: "#" },
-          ])}
+          {renderDropdown("Account Settings", "account")}
           {renderDropdown("Preferences", "preference", [
             { label: "Language", href: "#" },
             { label: "Theme (Light/Dark Mode)", href: "#" },

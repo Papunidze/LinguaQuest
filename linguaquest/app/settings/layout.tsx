@@ -24,7 +24,7 @@ export default function RootLayout({
         <SettingsLeftBar />
         <div className="p-4 sm:ml-14 w-full">
           <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            <div className="grid grid-cols-3 gap-4 mb-4">{children}</div>
+            <div className="inline-block w-full">{children}</div>
           </div>
         </div>
       </div>
