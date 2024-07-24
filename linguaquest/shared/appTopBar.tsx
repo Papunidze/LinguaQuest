@@ -108,25 +108,25 @@ const AppTopBar: FC = () => {
                     {
                       label: "Account Settings",
                       fn: () => {
-                        router.push("/settings", { scroll: false });
+                        router.push("/settings/account", { scroll: false });
                       },
                     },
                     {
                       label: "Preferences",
                       fn: () => {
-                        router.push("/settings", { scroll: false });
+                        router.push("/settings/account", { scroll: false });
                       },
                     },
                     {
                       label: "Subscription and Billing",
                       fn: () => {
-                        router.push("/settings", { scroll: false });
+                        router.push("/settings/account", { scroll: false });
                       },
                     },
                     {
                       label: "Help and Support",
                       fn: () => {
-                        router.push("/settings", { scroll: false });
+                        router.push("/settings/account", { scroll: false });
                       },
                     },
                     {

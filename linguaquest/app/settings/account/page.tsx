@@ -14,6 +14,7 @@ import { Edit2 } from "react-feather";
 const Account = () => {
   const { auth } = useAuthContext();
   const [avatar, setAvatar] = useState(auth.user?.avatar);
+  const [isEdit, setIsEdit] = useState(false);
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -62,26 +63,84 @@ const Account = () => {
               <span className="text-sm">Edit</span>
             </IconButton>
           </div>
-          <div className="grid grid-cols-1 mt-4 border-[1px] border-gray-200 rounded-xl p-4 w-full relative md:grid-cols-3">
-            <div className="grid grid-cols-1 ">
-              <span className="text-gray-400 text-sm">Name</span>
-              <span className="text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap">
-                {auth.user?.name}
-              </span>
+          {isEdit ? (
+            <div className="mt-4 border-[1px] border-gray-200 rounded-xl p-4 w-full ">
+              <Form
+                onSubmit={handleSubmit(
+                  (form) => console.log(form)
+                  // $updateUser.mutate(
+                  //   { ...form, avatar },
+                  //   {
+                  //     onSuccess: () => {
+                  //       showSnackbar(
+                  //         "Your data has been updated successfully",
+                  //         "success"
+                  //       );
+                  //     },
+                  //     onError: (error) => {
+                  //       const customError = error as { errorKey: string };
+                  //       showSnackbar(
+                  //         errorsResponse[customError.errorKey],
+                  //         "error"
+                  //       );
+                  //     },
+                  //   }
+                  // )
+                )}
+                // isLoading={$updateUser.isLoading}
+                submitButtonLabel="Save"
+                btnStyle="w-fit px-5 "
+                form={
+                  <div className="grid grid-cols-1 relative md:grid-cols-3 gap-4">
+                    <ControlledInput
+                      control={control}
+                      name="name"
+                      inputProps={{ type: "text" }}
+                      label="Name"
+                      errors={errors.name}
+                    />
+                    <ControlledInput
+                      control={control}
+                      name="email"
+                      inputProps={{ type: "text" }}
+                      label="Email"
+                      errors={errors.name}
+                    />
+                    <IconButton
+                      icon={<Edit2 width={16} />}
+                      onClick={() => setIsEdit((prev) => !prev)}
+                      className="bg-transparent flex gap-1 text-gray-500 hover:text-gray-800 items-center text-center justify-center  w-fit justify-self-end border-[1px] border-gray-200 rounded-xl p-2 h-fit"
+                    >
+                      <span className="text-sm">Edit</span>
+                    </IconButton>
+                  </div>
+                }
+              />
             </div>
-            <div className="grid grid-cols-1 ">
-              <span className="text-gray-400 text-sm">Email</span>
-              <span className="text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap">
-                {auth.user?.email}
-              </span>
+          ) : (
+            <div className="grid grid-cols-1 mt-4 border-[1px] border-gray-200 rounded-xl p-4 w-full relative md:grid-cols-3">
+              <div className="grid grid-cols-1 ">
+                <span className="text-gray-400 text-sm">Name</span>
+                <span className="text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+                  {auth.user?.name}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 ">
+                <span className="text-gray-400 text-sm">Email</span>
+                <span className="text-base font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+                  {auth.user?.email}
+                </span>
+              </div>
+              <IconButton
+                icon={<Edit2 width={16} />}
+                onClick={() => setIsEdit((prev) => !prev)}
+                className="bg-transparent flex gap-1 text-gray-500 hover:text-gray-800 items-center text-center justify-center  w-fit justify-self-end border-[1px] border-gray-200 rounded-xl p-2"
+              >
+                <span className="text-sm">Edit</span>
+              </IconButton>
             </div>
-            <IconButton
-              icon={<Edit2 width={16} />}
-              className="bg-transparent flex gap-1 text-gray-500 hover:text-gray-800 items-center text-center justify-center  w-fit justify-self-end border-[1px] border-gray-200 rounded-xl p-2"
-            >
-              <span className="text-sm">Edit</span>
-            </IconButton>
-          </div>
+          )}
+
           <div className="w-full border-[1px] border-gray-200 rounded-xl">
             <Form
               onSubmit={handleSubmit(
